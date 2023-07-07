@@ -14,7 +14,7 @@ namespace OTPGeneratorDemo
            
             OTPGeneratorClass otpGenerator = new OTPGeneratorClass();
 
-            Console.WriteLine("Enter a uder ID:");
+            Console.WriteLine("Enter a user ID:");
             string userId = Console.ReadLine();
             DateTime dateTime = DateTime.Now;
 

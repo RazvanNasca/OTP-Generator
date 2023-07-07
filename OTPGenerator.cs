@@ -1,11 +1,11 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace OTPGenerator
 {
     public class OTPGeneratorClass
     {
+
         private const int ExpirySeconds = 30;  // Constant value for the OTP expiry time in seconds
 
         public string GenerateOTP(string userId, DateTime dateTime)
@@ -20,11 +20,10 @@ namespace OTPGenerator
             {
                 var timestampBytes = BitConverter.GetBytes(dateTime.Ticks);  // Convert the date time to a byte array
                 byte[] hashBytes = hmac.ComputeHash(timestampBytes);  // Compute the hash of the byte array
-                int numberOfDigits = userId.Length % 10;
 
-                // Take the first numberofDigits bytes of the hash and convert them to a numeric string
-                int otpValue = (int)Math.Abs(BitConverter.ToInt32(hashBytes, 0) % Math.Pow(10, numberOfDigits));
-                string otp = otpValue.ToString(string.Format("D{0}", numberOfDigits));  // Format the OTP as a numberOfDigits numeric string
+                // Take the first 5 bytes of the hash and convert them to a numeric string
+                int otpValue = (int)Math.Abs(BitConverter.ToInt32(hashBytes, 0) % Math.Pow(10, 5));
+                string otp = otpValue.ToString("D5");  // Format the OTP as a 5 numeric string
 
                 return otp;  // Return the generated OTP
             }
